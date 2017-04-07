@@ -4,9 +4,35 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ControlDemo"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
-    <Grid>
         
+        mc:Ignorable="d"
+        Title="MainWindow" Height="300" Width="300">
+    <Grid>
+        <Border BorderThickness="1" >
+            <Grid>
+                <DockPanel>
+                    <Grid DockPanel.Dock="Top" Height="30" Background="White">
+
+                        <TextBlock   HorizontalAlignment="Left" Name="txtTitle" TextTrimming="CharacterEllipsis" MaxWidth="200" VerticalAlignment="Center" FontSize="16" Margin="10,0,0,0"></TextBlock>
+                        <StackPanel   Orientation="Horizontal" HorizontalAlignment="Right">
+                            <Button Name="go" Width="30"></Button>
+                            <!--<CheckBox Name="checkMax" Checked="CheckBox_Checked" Unchecked="checkMax_Unchecked" Style="{StaticResource CheckMagnifyStyle}" Width="30" Height="30"></CheckBox>
+                            <CheckBox Name="CheckMenu"  Click="CheckMenu_Click" Style="{StaticResource CheckBoxStyle}"   Width="30" Height="30" >
+                                <CheckBox.ContextMenu>
+                                    <ContextMenu Name="MenuChart"  Style="{StaticResource ContextMenuStyle}" Initialized="CheckMenu_Initialized">
+
+                                    </ContextMenu>
+                                </CheckBox.ContextMenu>
+                            </CheckBox>-->
+
+                        </StackPanel>
+                    </Grid>
+                    <Grid Name="ChartGrid" DockPanel.Dock="Bottom">
+
+                    </Grid>
+                </DockPanel>
+
+            </Grid>
+        </Border>
     </Grid>
 </Window>
