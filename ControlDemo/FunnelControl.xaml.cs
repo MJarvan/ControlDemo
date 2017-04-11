@@ -15,6 +15,8 @@ using System.Windows.Shapes;
 using System.Windows.Controls.Primitives;
 using ChartControl.Model;
 using ChartControls.Logic;
+using System.Windows.Media.Animation;
+
 
 namespace ControlDemo
 {
@@ -26,6 +28,8 @@ namespace ControlDemo
         public FunnelControl()
         {
             InitializeComponent();
+
+            checkMax.IsChecked = false;
         }
 
         //重写ArrangeOverride获得grid实际高度，宽度
@@ -46,7 +50,10 @@ namespace ControlDemo
         //绑定数据源
         List<FunnelChartModel> FunnelDataContext = new List<FunnelChartModel>();
 
-        //最大半径
+        public double WindowsHeight { get; set; }
+        public double WindowsWidth { get; set; }
+
+        //最大宽度
         private double FunnelMaxWidth = 0;
         //最大高度
         private double FunnelMaxHeight = 0;
@@ -59,6 +66,9 @@ namespace ControlDemo
         private Brush FunnelBrush = new SolidColorBrush(Color.FromRgb(255, 0, 0));
 
         private bool IsDraw = false;
+
+        private double controlWidth = 600;
+        private double controlHeight = 400;
         #endregion
 
         #region  布局画图
@@ -204,7 +214,6 @@ namespace ControlDemo
             Grid txtGrid_Loaded = sender as Grid;
             if (txtGrid_Loaded != null)
             {
-                double with = txtGrid_Loaded.ActualWidth;
                 Point point = (Point)txtGrid_Loaded.Tag;
 
                 if (point != null)
@@ -248,5 +257,49 @@ namespace ControlDemo
                 popupMessage.IsOpen = false;
         }
         #endregion
+
+
+
+        /// <summary>
+        /// 放大控件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void checkMax_Checked(object sender, RoutedEventArgs e)
+        {
+            this.RenderTransformOrigin = new Point(0.5, 0.5);
+            this.BeginAnimation(WidthProperty, GetAnimation(controlWidth, WindowsWidth - 100));
+            this.BeginAnimation(HeightProperty, GetAnimation(controlHeight, WindowsHeight - 120));
+        }
+
+        //实现缓动动画
+        private AnimationTimeline GetAnimation(double oldValue, double newValue)
+        {
+            var sizeAnimation = new DoubleAnimation()
+            {
+                From = oldValue,
+                To = newValue,
+                Duration = TimeSpan.FromSeconds(1),
+                EasingFunction = new BackEase()
+                {
+                    Amplitude = 0.5,
+                    EasingMode = EasingMode.EaseInOut,
+                },
+            };
+
+            return sizeAnimation;
+        }
+
+        /// <summary>
+        /// 缩小控件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void checkMax_Unchecked(object sender, RoutedEventArgs e)
+        {
+            this.RenderTransformOrigin = new Point(0.5, 0.5);
+            this.BeginAnimation(WidthProperty, GetAnimation(this.ActualWidth, controlWidth));
+            this.BeginAnimation(HeightProperty, GetAnimation(this.ActualHeight, controlHeight));
+        }
     }
 }

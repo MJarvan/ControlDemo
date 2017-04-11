@@ -6,7 +6,12 @@
              xmlns:local="clr-namespace:ControlDemo"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <Grid Name="GridControl">
-            
-    </Grid>
+    <StackPanel>
+        <CheckBox Name="checkMax" Width="30" Height="30" Checked="checkMax_Checked" Unchecked="checkMax_Unchecked" HorizontalAlignment="Right"></CheckBox>
+        <Grid Name="GridControl">
+
+        </Grid>
+
+    </StackPanel>
+    
 </UserControl>
